@@ -1,25 +1,25 @@
 N, K = map(int, input().split())
 S = []
+
 for i in range(N):
     s = int(input())
-    if s == 0:
-        Max = N
     S.append(s)
-
-if Max == N:
+r,  ans = 0, 0
+mul = 1
+cnt = 0
+if 0 in S:
     print(N)
-    exit()
-
-for l in range(N-1):
-    cnt = 0
-    mul = S[l]
-    if mul <= K:
-        cnt += 1
-        r = l + 1
-        while mul*S[r] <= K:
+else:
+    for l in range(N):
+        while r < N and mul*S[r] <= K:
             mul *= S[r]
             r += 1
-            cnt += 1
-    if Max < cnt:
-        Max = cnt
-print(Max)
+
+        ans = max(ans,r-l)
+        if l == r:
+            r += 1
+        else:
+            mul //= S[l]
+    print(ans)
+
+
